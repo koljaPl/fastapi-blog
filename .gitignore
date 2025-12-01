@@ -2,4 +2,3 @@
 .venv
 .idea
 .git
-backend/app/v1/__init__.py
