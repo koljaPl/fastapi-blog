@@ -84,6 +84,10 @@ blog-platform/
 │   └── workflows/
 │       └── ci.yml                  # GitHub Actions
 │
+├── .gitignore
+├── LICENSE
+├── Structure.md
+├── Stack.md
 └── README.md
 ```
 
