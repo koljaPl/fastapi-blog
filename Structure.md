@@ -26,12 +26,14 @@ blog-platform/
 │   │   │   ├── posts.py
 │   │   │   └── users.py
 │   │   │
-│   │   ├── core/                   # Core utilities
-│   │   │   ├── __init__.py
-│   │   │   ├── security.py         # Password hashing, JWT
-│   │   │   └── logger.py           # Logging setup
-│   │   │
-│   │   └── tests/                  # Pytest tests
+│   │   └── core/                   # Core utilities
+│   │       ├── __init__.py
+│   │       ├── security.py         # Password hashing, JWT
+│   │       ├── error_handler.py    # Error handler
+│   │       ├── exceptions.py       # Custom exceptions
+│   │       └── logger.py           # Logging setup
+│   │   
+│   └── tests/                      # Pytest tests
 │   │       ├── __init__.py
 │   │       ├── test_auth.py
 │   │       └── test_posts.py
