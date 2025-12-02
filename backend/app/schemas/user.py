@@ -1,62 +1,97 @@
 """
-Pydantic schemas for user validation and serialization.
+User schemas with complete documentation.
 """
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator
+import re
 
 
 class UserBase(BaseModel):
     """Base user schema."""
-    email: EmailStr
-    username: str = Field(..., min_length=3, max_length=50)
-    full_name: Optional[str] = Field(None, max_length=100)
-
-
-class UserCreate(UserBase):
-    """Schema for user registration."""
-    password: str = Field(..., min_length=8, max_length=128)
-
-    @validator('username')
-    def validate_username(cls, v):
-        """Validate username format."""
-        import re
-        if not re.match(r'^[a-zA-Z0-9_]+$', v):
-            raise ValueError('Username can only contain letters, numbers, and underscores')
-        return v
+    email: EmailStr = Field(..., description="User email address")
+    username: str = Field(..., min_length=3, max_length=50, description="Unique username")
+    full_name: Optional[str] = Field(None, max_length=100, description="Full name")
 
 
 class UserUpdate(BaseModel):
     """Schema for updating user profile."""
-    full_name: Optional[str] = Field(None, max_length=100)
-    bio: Optional[str] = Field(None, max_length=500)
-    avatar_url: Optional[str] = Field(None, max_length=255)
+    full_name: Optional[str] = Field(None, max_length=100, description="Full name")
+    bio: Optional[str] = Field(None, max_length=500, description="User biography")
+    avatar_url: Optional[str] = Field(None, max_length=255, description="Avatar image URL")
+
+    @field_validator('avatar_url')
+    def validate_avatar_url(cls, v):
+        """Validate avatar URL format."""
+        if v and not v.startswith(('http://', 'https://')):
+            raise ValueError('Avatar URL must start with http:// or https://')
+        return v
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "full_name": "John Doe",
+                "bio": "Software developer and blogger",
+                "avatar_url": "https://example.com/avatar.jpg"
+            }
+        }
+    )
 
 
 class UserResponse(BaseModel):
-    """Schema for user responses."""
+    """Basic user response."""
     id: int
     email: EmailStr
     username: str
-    full_name: Optional[str]
-    bio: Optional[str]
-    avatar_url: Optional[str]
+    full_name: Optional[str] = None
+    avatar_url: Optional[str] = None
     is_active: bool
-    is_superuser: bool
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
-class TokenResponse(BaseModel):
-    """Schema for authentication token response."""
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
+class UserDetailResponse(UserResponse):
+    """Detailed user response with all fields."""
+    bio: Optional[str] = None
+    is_superuser: bool
+    last_login: Optional[datetime] = None
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "id": 1,
+                "email": "user@example.com",
+                "username": "john_doe",
+                "full_name": "John Doe",
+                "bio": "Software developer",
+                "avatar_url": "https://example.com/avatar.jpg",
+                "is_active": True,
+                "is_superuser": False,
+                "created_at": "2024-01-15T10:30:00",
+                "last_login": "2024-01-20T15:45:00"
+            }
+        }
+    )
 
 
-class PasswordChange(BaseModel):
-    """Schema for password change."""
-    old_password: str
-    new_password: str = Field(..., min_length=8, max_length=128)
+class UserListResponse(BaseModel):
+    """Schema for paginated user list."""
+    users: List[UserResponse]
+    total: int
+    page: int
+    page_size: int
+    has_more: bool
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "users": [],
+                "total": 25,
+                "page": 1,
+                "page_size": 10,
+                "has_more": True
+            }
+        }
+    )
