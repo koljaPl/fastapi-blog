@@ -18,32 +18,43 @@ blog-platform/
 │   │   ├── schemas/                # Pydantic schemas
 │   │   │   ├── __init__.py
 │   │   │   ├── user.py
+│   │   │   ├── auth.py
+│   │   │   ├── comment.py
 │   │   │   └── post.py
 │   │   │
 │   │   ├── api/                    # API routes
-│   │   │   ├── __init__.py
-│   │   │   ├── auth.py
-│   │   │   ├── posts.py
-│   │   │   └── users.py
+│   │   │   └──v1
+│   │   │       ├── __init__.py
+│   │   │       ├── auth.py
+│   │   │       ├── comments.py
+│   │   │       ├── posts.py
+│   │   │       └── users.py
 │   │   │
 │   │   └── core/                   # Core utilities
 │   │       ├── __init__.py
 │   │       ├── security.py         # Password hashing, JWT
 │   │       ├── error_handler.py    # Error handler
 │   │       ├── exceptions.py       # Custom exceptions
+│   │       ├── test_config.py      # Configuration for tests
 │   │       └── logger.py           # Logging setup
 │   │   
 │   └── tests/                      # Pytest tests
 │   │       ├── __init__.py
+│   │       ├── conftest.py
 │   │       ├── test_auth.py
-│   │       └── test_posts.py
+│   │       ├── test_posts.py
+│   │       └── test_users_comments.py
 │   │
 │   ├── alembic/                    # Database migrations
 │   │   ├── versions/
-│   │   └── env.py
+│   │   └── env.py                  # 0 Lines
 │   │
 │   ├── requirements.txt
 │   ├── Dockerfile
+│   ├── pytest.ini
+│   ├── Makefile
+│   ├── run_tests.sh                # 
+│   ├── start.sh                    # script for all environments
 │   └── .env.example
 │
 ├── frontend/
@@ -82,12 +93,13 @@ blog-platform/
 ├── docker-compose.yml              # All services
 ├── .github/
 │   └── workflows/
+│       ├── tests.yml               # Tests
 │       └── ci.yml                  # GitHub Actions
 │
-├── .gitignore
-├── LICENSE
-├── Structure.md
-├── Stack.md
+├── .gitignore                      # .gitignore file
+├── LICENSE                         # MIT License
+├── Structure.md                    # Project Structure
+├── Stack.md                        # Stack that I use it this Project
 └── README.md
 ```
 
