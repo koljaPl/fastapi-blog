@@ -1,4 +1,4 @@
-# FastAPI and dependencies
+# FastAPI and ASGI server
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 pydantic==2.5.3
@@ -12,6 +12,7 @@ alembic==1.13.1
 
 # Redis
 redis==5.0.1
+fakeredis==2.21.0  # For testing
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0
@@ -26,6 +27,7 @@ sentry-sdk[fastapi]==1.39.2
 pytest==7.4.4
 pytest-asyncio==0.23.3
 pytest-cov==4.1.0
+pytest-xdist==3.5.0  # Parallel test execution
 httpx==0.26.0
 
 # Development
