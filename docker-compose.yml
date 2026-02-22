@@ -9,24 +9,24 @@ services:
       - ./app:/app/app
     env_file:
       - .env
-    depends_on:
-      db:
-        condition: service_healthy
+    depends_on: []
+#      db:
+#        condition: service_healthy
 
 
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: app_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U user" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+#  db:
+#    image: postgres:16
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: pass
+#      POSTGRES_DB: app_db
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U user" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
 
-volumes:
-  postgres_data:
+#volumes:
+#  postgres_data:
