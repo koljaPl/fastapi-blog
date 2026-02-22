@@ -3,11 +3,10 @@ from datetime import datetime
 from typing import Optional
 
 class PostBase(BaseModel):
-    title: str
-    content: str
+    title: str = Field(..., min_length=3, max_length=100, description="Заголовок поста")
+    content: str = Field(..., min_length=10, description="Основной текст поста")
     is_published: bool = True
 
-    model_config = ConfigDict(from_attributes=True)  # Позволяет Pydantic читать данные из SQLAlchemy моделей
 
 # Схема для создания поста (то, что присылает клиент)
 class PostCreate(PostBase):
@@ -17,3 +16,5 @@ class PostCreate(PostBase):
 class PostResponse(PostBase):
     id: int
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
