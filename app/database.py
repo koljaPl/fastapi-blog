@@ -6,8 +6,6 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.config import settings
 
-DATABASE_URL = "sqlite+aiosqlite:///./blog.db"
-
 engine = create_async_engine(settings.DATABASE_URL)
 async_session = async_sessionmaker(engine, expire_on_commit=False)
 

@@ -1,0 +1,35 @@
+name: FastAPI CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          pip install -r requirements.txt
+
+      - name: Black check
+        run: black --check .
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: MyPy check
+        run: mypy app
+
+      - name: Run tests
+        run: pytest

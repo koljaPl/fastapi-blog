@@ -1,5 +1,3 @@
-from typing import AsyncGenerator
-
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -7,16 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app import crud, schemas
 from app.config import settings
-from app.database import Post, async_session
+from app.database import Post
+from app.dependencies import get_db
 
 router = APIRouter(prefix="/posts", tags=["Posts"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-
-# Dependency для БД (теперь она живет здесь или в отдельном файле dependencies.py)
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session() as session:
-        yield session
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> str:
