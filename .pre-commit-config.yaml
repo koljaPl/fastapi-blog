@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml          # Проверяет синтаксис YAML-файлов
+      - id: end-of-file-fixer   # Добавляет пустую строку в конец файла
+      - id: trailing-whitespace # Удаляет лишние пробелы в концах строк
+
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black               # Форматирует код
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.9
+    hooks:
+      - id: ruff                # Проверяет ошибки и чистит импорты
+        args: [ --fix ]         # Пытается исправить ошибки автоматически
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy                # Проверяет типизацию
+        additional_dependencies:
+          - "pydantic>=2.0"
+          - "pydantic-settings"
+          - "sqlalchemy[mypy]"
+          - "fastapi"
+          - "types-python-jose"  # Чтобы Mypy понимал библиотеку jose
+          - "python-multipart"

@@ -1,0 +1,17 @@
+# git diff
+
+[tool.black] # black .
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff] # ruff check . and ruff check . --fix
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "I", "B"] # Ошибки, линтинг, импорты, лучшие практики
+ignore = ["B008"]
+
+[tool.mypy] # mypy .
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]

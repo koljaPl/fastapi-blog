@@ -1,0 +1,15 @@
+fastapi[standard]
+pydantic
+sqlalchemy
+uvicorn[standard]
+gunicorn
+alembic
+aiosqlite
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt==4.0.1
+black
+ruff
+mypy
+pre-commit
