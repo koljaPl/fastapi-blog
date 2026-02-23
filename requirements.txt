@@ -13,3 +13,7 @@ black
 ruff
 mypy
 pre-commit
+
+pytest
+pytest-asyncio
+httpx
