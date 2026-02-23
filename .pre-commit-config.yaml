@@ -21,4 +21,10 @@ repos:
     rev: v1.8.0
     hooks:
       - id: mypy                # Проверяет типизацию
-        additional_dependencies: [pydantic, pydantic-settings, sqlalchemy]
+        additional_dependencies:
+          - "pydantic>=2.0"
+          - "pydantic-settings"
+          - "sqlalchemy[mypy]"
+          - "fastapi"
+          - "types-python-jose"  # Чтобы Mypy понимал библиотеку jose
+          - "python-multipart"

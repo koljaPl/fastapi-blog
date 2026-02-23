@@ -1,3 +1,5 @@
+# git diff
+
 [tool.black] # black .
 line-length = 88
 target-version = ['py312']
@@ -6,6 +8,7 @@ target-version = ['py312']
 line-length = 88
 target-version = "py312"
 select = ["E", "F", "I", "B"] # Ошибки, линтинг, импорты, лучшие практики
+ignore = ["B008"]
 
 [tool.mypy] # mypy .
 python_version = "3.12"
